@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello, World! • A-Frame</title>
+    <meta name="description" content="Hello, World! • A-Frame">
+    <script src="/aframe/dist/aframe.js"></script>
+  </head>
+  <body>
+
+
+
+  </body>
+
+</html>
+
+<!--
+
+ENTITY
+
+<a-entity class="link"
+  geometry="primitive: plane; height: 1; width: 1"
+  material="shader: flat; src: #cubes-thumb"
+  sound="on: click; src: #click-sound"></a-entity>
+ -->
+
+<!--
+
+ADDING A BOX
+
+<a-scene>
+  <a-box color="red"></a-box>
+</a-scene>
+
+ -->
+
+
+<!--
+
+TRANSFORMING AN ENTITY
+
+<a-scene>
+  <a-box color="red" rotation="0 45 45" scale="2 2 2"></a-box>
+</a-scene>
+
+ -->
+
+<!--
+
+ADDING A SKY/BACKGROUND
+
+ <a-scene>
+  <a-box color="red" position="0 2 -5" rotation="0 45 45" scale="2 2 2"></a-box>
+  <a-sky color="#222"></a-sky>
+</a-scene>
+
+  -->
+
+<!--
+
+APPLYING AN IMAGE TEXTURE
+
+  <a-scene>
+  <a-box src="https://i.imgur.com/mYmmbrp.jpg" position="0 2 -5" rotation="0 45 45"
+    scale="2 2 2"></a-box>
+  <a-sky color="#222"></a-sky>
+</a-scene>
+
+-->
+
+<!--
+
+USING ASSET MANAGEMENT SYSTEM
+
+Add <a-assets> to the scene.
+Define the texture as an <img> under <a-assets>.
+Give the <img> an HTML ID (e.g., id="boxTexture").
+Reference the asset using the ID in DOM selector format (src="#boxTexture").
+
+<a-scene>
+  <a-assets>
+    <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg">
+  </a-assets>
+  <a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2"></a-box>
+  <a-sky color="#222"></a-sky>
+</a-scene>
+
+ -->
+
+<!--
+
+ADDING A GROUND
+
+ Then we can apply an image texture to our ground:
+
+<a-assets>
+
+  <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+</a-assets>
+<a-plane src="#groundTexture" rotation="-90 0 0" width="30" height="30"></a-plane>
+es).
+
+<a-plane src="#groundTexture" rotation="-90 0 0" width="30" height="30" repeat="10 10"></a-plane>
+ -->
+
+<!--
+
+ADDING A POINT LIGHT
+
+<a-scene>
+  <a-assets>
+    <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg">
+    <img id="skyTexture"
+      src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
+    <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+  </a-assets>
+  <a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2"></a-box>
+  <a-sky src="#skyTexture"></a-sky>
+  <a-light type="ambient" color="#445451"></a-light>
+  <a-light type="point" intensity="2" position="2 4 4"></a-light>
+</a-scene>
+
+ -->
+
+<!--
+
+ADDING ANIMATION
+
+ <a-scene>
+  <a-assets>
+    <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg">
+  </a-assets>
+  <a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2">
+    <a-animation attribute="position" to="0 2.2 -5" direction="alternate" dur="2000"
+      repeat="indefinite"></a-animation>
+  </a-box>
+</a-scene>
+
+ -->
+
+<!--
+
+ADDING A CURSOR
+
+   <a-camera>
+    <a-cursor></a-cursor>
+  </a-camera>
+</a-scene>
+
+ -->
+
+<!--
+
+ADDING INTERACTION
+
+ <script>
+  AFRAME.registerComponent('scale-on-mouseenter', {
+    schema: {
+      to: {default: '2.5 2.5 2.5'}
+    },
+    init: function () {
+      var data = this.data;
+      this.el.addEventListener('click', function () {
+        this.setAttribute('scale', data.to);
+      });
+    }
+  });
+</script>
+
+We can attach this component to our box straight from HTML:
+
+<script>
+  AFRAME.registerComponent('scale-on-mouseenter', {
+    // ...
+  });
+</script>
+<a-scene>
+  <a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2"
+         scale-on-mouseenter="to: 2.2 2.2 2.2">
+    <a-animation attribute="position" to="0 2.2 -5" direction="alternate" dur="2000"
+      repeat="indefinite"></a-animation>
+  </a-box>
+</a-scene>
+
+-->
+
+<!--
+
+ANIMATING ON EVENTS
+
+<a-animation> has a feature to begin its animation when the entity it is animating emits an event. This can be done through the begin attribute, which takes an event name.
+
+We can add two animations for the cursor component’s mouseenter and one mouseleave events to change the box’s scale, and one for rotating the box around the Y-axis on click:
+
+<a-box color="#FFF" width="4" height="10" depth="2"
+       position="-10 2 -5" rotation="0 0 45" scale="2 0.5 3"
+       src="#texture">
+  <a-animation attribute="position" to="0 2.2 -5" direction="alternate" dur="2000"
+    repeat="indefinite"></a-animation>
+
+  <a-animation attribute="scale" begin="mouseenter" dur="300" to="2.3 2.3 2.3"></a-animation>
+  <a-animation attribute="scale" begin="mouseleave" dur="300" to="2 2 2"></a-animation>
+  <a-animation attribute="rotation" begin="click" dur="2000" to="360 405 45"></a-animation>
+</a-box>
+ -->
+
+<!--
+
+ADDING AUDIO
+
+ <a-scene>
+  <a-assets>
+    <audio src="https://cdn.aframe.io/basis-guide/backgroundnoise.wav" autoplay
+      preload></audio>
+  </a-assets>
+
+</a-scene>
+
+ -->
+
+<!--
+
+ADDING AUDIO
+
+ <a-scene>
+
+  <a-sound src="https://cdn.aframe.io/basis-guide/backgroundnoise.wav" autoplay="true"
+    position="-3 1 -4"></a-sound>
+
+</a-scene>
+
+ -->
+
+<!--
+
+TEXT COMPONENT EXAMPLE
+
+ <a-entity bmfont-text="text: Hello, A-Frame!; color: #BBB" position="-0.9 0.2 -3"
+  scale="1.5 1.5 1.5"></a-entity>
+
+   -->
+
+<!--
+
+ADDING VISUAL FEEDBACK TO A CURSOR
+
+   <a-camera>
+     <a-cursor id="cursor">
+       <a-animation begin="click" easing="ease-in" attribute="scale"
+                    fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="300"></a-animation>
+       <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+                    from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
+     </a-cursor>
+   </a-camera>
+
+-->
+
+<!--
+
+TEMPLATE COMPONENT
+
+<a-assets>
+
+  <script id="plane" type="text/html">
+    <a-entity class="link"
+      geometry="primitive: plane; height: 1; width: 1"
+      material="shader: flat; src: #cubes-thumb"
+      sound="on: click; src: #click-sound"></a-entity>
+  </script>
+</a-assets>
+
+Then we can use the template to create multiple planes without much work:
+
+<a-entity template="src: #plane"></a-entity>
+<a-entity template="src: #plane"></a-entity>
+<a-entity template="src: #plane"></a-entity>
+
+Using template string Es6
+
+<a-assets>
+  <script id="plane" type="text/html">
+    <a-entity class="link"
+      geometry="primitive: plane; height: 1; width: 1"
+      material="shader: flat; src: ${thumb}"
+      sound="on: click; src: #click-sound"></a-entity>
+  </script>
+</a-assets>
+
+
+<a-entity template="src: #plane" data-thumb="#city-thumb"></a-entity>
+<a-entity template="src: #plane" data-thumb="#cubes-thumb"></a-entity>
+<a-entity template="src: #plane" data-thumb="#sechelt-thumb"></a-entity>
+
+ -->
+
+<!--
+
+LAYOUT COMPONENT
+
+ <a-entity id="links" layout="layout: line; margin: 1.5" position="-3 -1 -4">
+  <a-entity template="src: #plane" data-thumb="#city-thumb"></a-entity>
+  <a-entity template="src: #plane" data-thumb="#cubes-thumb"></a-entity>
+  <a-entity template="src: #plane" data-thumb="#sechelt-thumb"></a-entity>
+</a-entity>
+
+ -->
+
+<!--
+
+EVENT-SET COMPONENTS
+
+ <a-assets>
+
+  <script id="link" type="text/nunjucks">
+    <a-entity class="link"
+      geometry="primitive: plane; height: 1; width: 1"
+      material="shader: flat; src: ${thumb}"
+      sound="on: click; src: #click-sound"
+      event-set__1="_event: mousedown; scale: 1 1 1"
+      event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+      event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
+      event-set__4="_event: mouseleave; scale: 1 1 1"></a-entity>
+  </script>
+</a-assets>
+
+-->
+
+<!--
+
+WRITING COMPONENTS
+
+skeleton:
+
+AFRAME.registerComponent('set-image', {
+  schema: {
+    // ...
+  },
+  init: function () {
+    // ...
+  }
+});
+
+
+Now we decide what the API for our image-setting component will be. We need:
+
+An event name to listen to.
+Which entity to change the texture of.
+The image texture.
+An animation fade duration.
+So we translate those properties to the schema:
+
+AFRAME.registerComponent('set-image', {
+  schema: {
+    on: {type: 'string'},
+    target: {type: 'selector'},
+    src: {type: 'string'},
+    dur: {type: 'number', default: 300}
+  },
+  init: function () {
+    // ...
+  },
+  setupFadeAnimation: function () {
+    // Appends an <a-animation> that fades to black.
+  }
+});
+
+
+/**
+ * Component that listens to an event, fades out an entity, swaps the texture, and fades it
+ * back in.
+ */
+AFRAME.registerComponent('set-image', {
+  schema: {
+    on: {type: 'string'},
+    target: {type: 'selector'},
+    src: {type: 'string'},
+    dur: {type: 'number', default: 300}
+  },
+
+  init: function () {
+    var data = this.data;
+    var el = this.el;
+
+    this.setupFadeAnimation();
+
+    el.addEventListener(data.on, function () {
+      // Fade out image.
+      data.target.emit('set-image-fade');
+      // Wait for fade to complete.
+      setTimeout(function () {
+        // Set image.
+        data.target.setAttribute('material', 'src', data.src);
+      }, data.dur);
+    });
+  },
+
+  /**
+   * Setup fade-in + fade-out.
+   */
+  setupFadeAnimation: function () {
+    var data = this.data;
+    var targetEl = this.data.target;
+
+    // Only set up once.
+    if (targetEl.dataset.setImageFadeSetup) { return; }
+    targetEl.dataset.setImageFadeSetup = true;
+
+    // Create animation.
+    targetEl.setAttribute('animation__fade', {
+      property: 'material.color',
+      startEvents: 'set-image-fade',
+      dir: 'alternate',
+      dur: data.dur,
+      from: '#FFF',
+      to: '#000'
+    });
+  }
+});
+
+ -->
+
+<!--
+
+CUSTOM LOG
+
+  AFRAME.registerComponent('log', {
+  schema: {type: 'string'},
+  init: function () {
+    var stringToLog = this.data;
+    console.log(stringToLog);
+  }
+});
+Then to use the component from HTML:
+
+<a-scene log="Hello, Scene!">
+  <a-box log="Hello, Box!"></a-box>
+</a-scene>
+
+ -->
+
+
+<!--
+
+ALL ENTITIES HAVE REFERENCE TO THEIR SCENE ELEMENT
+
+AFRAME.registerComponent('foo', {
+  init: function () {
+    console.log(this.el.sceneEl);  // Reference to the scene element.
+  }
+});
+
+ -->
+
+<!--
+
+Adding a Component with .setAttribute()
+
+ To add a component, we can use .setAttribute(componentName, data). Let’s add a geometry component to the entity.
+
+entityEl.setAttribute('geometry', {
+  primitive: 'box',
+  height: 3,
+  width: 1
+});
+Or adding the community physics component:
+
+entityEl.setAttribute('dynamic-body', {
+  shape: 'box',
+  mass: 1.5,
+  linearDamping: 0.005
+});
+
+ -->
+
+<!--
+
+ADDING EVENT LISTENRS
+
+ AFRAME.registerComponent('log', {
+  schema: {
+    event: {type: 'string', default: ''},
+    message: {type: 'string', default: 'Hello, World!'}
+  },
+  update: function () {
+    var data = this.data;  // Component property values.
+    var el = this.el;  // Reference to the component's entity.
+    if (data.event) {
+      // This will log the `message` when the entity emits the `event`.
+      el.addEventListener(data.event, function () {
+        console.log(data.message);
+      });
+    } else {
+      // `event` not specified, just log the message.
+      console.log(data.message);
+    }
+  }
+});
+
+ -->

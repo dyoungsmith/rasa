@@ -1,85 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>Hello, World! • A-Frame</title>
-    <meta name="description" content="Hello, World! • A-Frame">
-    <script src="/aframe/dist/aframe.js"></script>
   </head>
   <body>
-
-  <!-- <script>
-    AFRAME.registerComponent('scale-on-mouseenter', {
-      schema: {
-        to: {default: '3 3 3'}
-      },
-      init: function () {
-        var data = this.data;
-        this.el.addEventListener('mouseenter', function () {
-          console.log('hey')
-          this.setAttribute('scale', data.to);
-        });
-      }
-    });
-  </script>
-    <script>
-    AFRAME.registerComponent('unscale-on-mouseleave', {
-      schema: {
-        to: {default: '1 1 1'}
-      },
-      init: function () {
-        var data = this.data;
-        this.el.addEventListener('mouseleave', function () {
-          console.log('bye')
-          this.setAttribute('scale', data.to);
-        });
-      }
-    });
-  </script> -->
-
-
-
-    <a-scene inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js">
-
-     <!--  <a-sphere position="0 1.25 -1" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-box position="-1 0.5 1" rotation="0 45 0" width="1" height="1" depth="1"  color="#4CC3D9"></a-box>
-      <a-cylinder position="1 0.75 1" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane> -->
-
-      <a-assets>
-        <!-- <img id="pebbleTexture" src="https://i.imgur.com/mYmmbrp.jpg"></img> -->
-        <!-- <img id="skyTexture" src="../images/beach.jpg"></img> -->
-        <!-- <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"></img> -->
-      </a-assets>
-
-      <a-camera>
-        <a-cursor></a-cursor>
-      </a-camera>
-
-    <!--   <a-entity id="box" position="4 3 0" geometry="primitive: box" material="color: red" scale="2 2 2" scale-on-mouseenter unscale-on-mouseleave></a-entity>
-      <a-box src="#pebbleTexture" position="20 2 0" scale="2 2 2">
-        <a-sphere position="1 0 3"></a-sphere>
-        <a-sphere position="2 -1 3"></a-sphere>
-        <a-sphere position="3 0 3"></a-sphere>
-      </a-box>
-
-
-      <a-light type="ambient" color="#445451"></a-light>
-      <a-light type="point" intensity="2" color="green" position="2 8 4"></a-light>
-
-      <a-sky color="blue"></a-sky> -->
-      <a-plane color="blue" rotation="0 0 -90" position="2 0 0" width="30" height="30"></a-plane>
-
-      <!-- <a-entity bmfont-text="text: Hello, A-Frame!; color: red" position="-0.9 0.2 -3" scale="5 5 5"></a-entity> -->
-
-    </a-scene>
-<!--     <script>
-    var boxEl = document.querySelector('#box')
-    boxEl.addEventListener('mouseenter', function () {
-      console.log('yarrrrg')
-      boxEl.setAttribute('scale', {x: 8, y: 8, z: 8});
-    });
-  </script> -->
+    <div id=main></div>
+    <script async defer src=/bundle.js></script>
   </body>
-
 </html>
