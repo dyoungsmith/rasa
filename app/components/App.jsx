@@ -21,9 +21,6 @@ class App extends Component {
 
     return(
       <div>
-        <nav>
-          {user ? <WhoAmI/> : <Login/>}
-        </nav>
         {children}
       </div>
     )

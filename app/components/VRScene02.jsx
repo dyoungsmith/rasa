@@ -15,7 +15,7 @@ import config from '../config'
 
 let aframeConfig = AFRAME.utils.styleParser.stringify(config);
 
-class VRScene01 extends Component {
+class VRScene02 extends Component {
   constructor(props) {
     super(props);
     this.state = {color: 'red'};
@@ -66,4 +66,4 @@ class VRScene01 extends Component {
 
 }
 
-export default VRScene01
+export default VRScene02
