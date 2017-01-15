@@ -9,6 +9,8 @@ let aframeConfig = AFRAME.utils.styleParser.stringify(config);
 
 class VRScene01 extends Component {
     render () {
+    console.log("components", AFRAME.components)
+    console.log("systems", AFRAME.systems)
     return (
       <a-scene firebase={aframeConfig}>
             <a-assets>

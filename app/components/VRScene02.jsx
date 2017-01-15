@@ -28,6 +28,8 @@ class VRScene02 extends Component {
     });
   }
   render() {
+    console.log("components", AFRAME.components)
+    console.log("systems", AFRAME.systems)
 
     return (
       <Scene>
