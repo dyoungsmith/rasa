@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import 'aframe'
 import 'aframe-animation-component';
 import 'aframe-text-component';
 import './aframe/components/follow'

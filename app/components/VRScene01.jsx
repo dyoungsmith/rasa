@@ -1,13 +1,22 @@
 import React, { Component } from 'react'
-import 'aframe'
 import 'aframe-firebase-component'
 import './aframe/components/follow'
-import './aframe/components/random-position'
+import './aframe/components/random-position';
 import config from '../config'
 
 let aframeConfig = AFRAME.utils.styleParser.stringify(config);
 
 class VRScene01 extends Component {
+    componentDidMount() {
+      window.addEventListener('gamepadconnected', function(e) {
+        console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+        e.gamepad.index, e.gamepad.id,
+        e.gamepad.buttons.length, e.gamepad.axes.length);
+      });
+      window.addEventListener('axismove', function(payload) {
+        console.log('AXIS CHANGED, PAYLOAD: ', payload)
+      })
+    }
     render () {
     console.log("components", AFRAME.components)
     console.log("systems", AFRAME.systems)
@@ -38,7 +47,7 @@ class VRScene01 extends Component {
                           position="0 -1 0"></a-entity>
               </a-entity>
 
-
+              <a-entity daydream-controller></a-entity>
 
               <a-sphere color="#645FCE" radius="0.2" position="-3 0 2"></a-sphere>
               <a-sphere color="#69E9F5" position="3 1 -7"></a-sphere>
