@@ -40,7 +40,7 @@ AFRAME.registerComponent('brush', {
     enabled: { default: true }
   },
   init: function () {
-    netLog("this el", simpleStringify(this.el))
+    // netLog("this el", simpleStringify(this.el))
     var data = this.data;
     this.color = new THREE.Color(data.color);
 
@@ -81,8 +81,8 @@ AFRAME.registerComponent('brush', {
     // });
 
     this.el.addEventListener('buttondown', function (evt) {
-      netLog("buttondown pushed", simpleStringify(evt) )
-      netLog("buttondown pushed-self-data", simpleStringify(self.data) )
+      // netLog("buttondown pushed", simpleStringify(evt) )
+      // netLog("buttondown pushed-self-data", simpleStringify(self.data) )
       // this.el.scene.emit('pushedbutton')
       netLog("About to check data enabled")
       // if (!self.data.enabled) { netLog("return from data enabled" ); return; }
@@ -133,11 +133,11 @@ AFRAME.registerComponent('brush', {
   })(),
   startNewStroke: function () {
     netLog("IN NEW STROKE*********************");
-    netLog("data info", simpleStringify(this.data));
-    netLog("This.system", simpleStringify(this.system));
-    netLog("addNewStroke", simpleStringify(this.system.addNewStroke));
+    // netLog("data info", simpleStringify(this.data));
+    // netLog("This.system", simpleStringify(this.system));
+    // netLog("addNewStroke", simpleStringify(this.system.addNewStroke));
     this.currentStroke = this.system.addNewStroke(this.data.brush, this.color, this.data.size);
-    netLog("About to emit", simpleStringify({entity: this.el, stroke: this.currentStroke}));
+    // netLog("About to emit", simpleStringify({entity: this.el, stroke: this.currentStroke}));
     this.el.emit('stroke-started', {entity: this.el, stroke: this.currentStroke});
   }
 });
@@ -467,7 +467,7 @@ AFRAME.registerComponent('paint-controls', {
     this.numberStrokes = 0;
 
     document.addEventListener('stroke-started', function (event) {
-      netLog("stroke-started Listener", simpleStringify(event) )
+      // netLog("stroke-started Listener", simpleStringify(event) )
       if (event.detail.entity.components['paint-controls'] !== self) { return; }
 
       self.numberStrokes++;
@@ -606,7 +606,8 @@ AFRAME.registerComponent('paint-controls', {
 class VRScene04 extends Component {
   componentDidMount(){
 
-    netLog("AFRAME SYSTEMS", simpleStringify( AFRAME.systems ))
+    // netLog("AFRAME SYSTEMS", simpleStringify( AFRAME.systems ))
+
 
     const box1 = document.getElementById('box1')
     const box2 = document.getElementById('box2')
