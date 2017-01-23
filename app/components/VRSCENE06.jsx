@@ -65,33 +65,26 @@ class VRScene05 extends Component {
       }
     }
 
-    const box1 = document.getElementById('box1')
+    const wBoard = document.getElementById('wBoard')  // whiteboard
     const box2 = document.getElementById('box2')
     const scene = document.querySelector('a-scene')
     const remote = document.getElementById('remote')
 
     document.addEventListener("loaded", () => {
-      const component = document.getElementById("box1").components["canvas-material"];
+      const component = document.getElementById("wBoard").components["canvas-material"];
       const ctx = component.getContext("2d");
 
       //The firebase object
       const firebase = document.querySelector('a-scene').systems.firebase.firebase
-      const database = firebase.database();
+      const db = firebase.database();
 
       ctx.lineWidth = 5;
-      ctx.lineJoin = 'round';
+      ctx.lineJoin = 'bevel';
       ctx.lineCap = 'round';
 
 
-      const currentRayPosition = {
-          x: 0,
-          y: 0
-      };
-
-      const lastRayPosition = {
-          x: 0,
-          y: 0
-      };
+      const currentRayPosition = { x: 0, y: 0 };
+      const lastRayPosition = { x: 0, y: 0 };
 
       let drawing = false;
 
@@ -101,8 +94,8 @@ class VRScene05 extends Component {
           drawing = true;
           netLog("buttown down canvas event at e", e)
           let proj = toScreenPosition(position, scene.camera)
-          currentRayPosition.x = proj.pageX //- this.offsetLeft;
-          currentRayPosition.y = proj.pageY //- this.offsetTop;
+          currentRayPosition.x = proj.x //- this.offsetLeft;
+          currentRayPosition.y = proj.y //- this.offsetTop;
       });
 
       remote.addEventListener('buttonup', function (e) {
@@ -145,11 +138,11 @@ class VRScene05 extends Component {
              position = e.detail.intersection.point
              if (!drawing) return;
              // netLog("here about to proj")
-             // netLog("here about to proj-sceneCamera", box1.sceneEl.cameraEl)
+             // netLog("here about to proj-sceneCamera", wBoard.sceneEl.cameraEl)
              // netLog("scene", scene)
              // netLog("scene-camera", scene.camera)
 
-             let proj = toScreenPosition(position, scene.camera, box1)
+             let proj = toScreenPosition(position, scene.camera, wBoard)
              lastRayPosition.x = currentRayPosition.x;
              lastRayPosition.y = currentRayPosition.y;
 
@@ -176,7 +169,7 @@ class VRScene05 extends Component {
              component.updateTexture();
       }
 
-      box1.addEventListener('raycaster-intersected',
+      wBoard.addEventListener('raycaster-intersected',
         (e) => { eventThrottler(e, raycasterEventHandler) }
       )
     })
@@ -202,7 +195,7 @@ class VRScene05 extends Component {
           </a-entity>
           <a-sky src="#fsPano"></a-sky>
           <a-sphere position="0 0 0" material="color: red; shader:flat" radius="15"></a-sphere>
-          <a-plane id="box1"  canvas-material="width:500;height:500;color:#224466" scale="10 4 4" class="selectable" position="0 2 -4" ></a-plane>
+          <a-plane id="wBoard"  canvas-material="width:500;height:500;color:#224466" scale="10 4 4" class="selectable" position="0 2 -4" ></a-plane>
           <a-box id="box2" class="selectable" scale="10 4 4" material="color:green; shader: flat" position="0 2 10"></a-box>
 
           <a-sky color="blue"></a-sky>
