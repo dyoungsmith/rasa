@@ -11,6 +11,7 @@ import VRScene02 from './components/VRScene02'
 import VRScene03 from './components/VRScene03'
 // import VRScene04 from './components/VRScene04'
 import VRScene05 from './components/VRScene05'
+import VRScene06 from './components/VRScene06'
 
 import App from './components/App'
 
@@ -24,6 +25,7 @@ render (
         <Route path="/scene03" component={VRScene03} />
         {/*  <Route path="/scene04" component={VRScene04} />  */}
         <Route path="/scene05" component={VRScene05} />
+        <Route path="/scene06" component={VRScene06} />
       </Route>
     </Router>
   </Provider>,

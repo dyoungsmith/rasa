@@ -38,7 +38,7 @@ function netLog(...input){
   let joinedInput = input.join(' , ')
   console.log(joinedInput)
 
-  axios.post('/api/logs', {message: joinedInput } )
+  // axios.post('/api/logs', {message: joinedInput } )
 }
 
 let isVR = false;
@@ -47,8 +47,23 @@ let isVR = false;
 //Copy the config.js object from the slack channel
 let aframeConfig = AFRAME.utils.styleParser.stringify(config);
 
+
+
+
 class VRScene05 extends Component {Í
   componentDidMount(){
+    let eventTimeout
+
+    function eventThrottler (e,fn) {
+
+      if (!eventTimeout) {
+        eventTimeout = setTimeout(function(){
+          eventTimeout = null
+          fn(e)
+        }, 750)
+      }
+    }
+
     const box1 = document.getElementById('box1')
     const box2 = document.getElementById('box2')
     const scene = document.querySelector('a-scene')
@@ -78,7 +93,9 @@ class VRScene05 extends Component {Í
       };
 
       let drawing = false;
+
       let position;
+
       remote.addEventListener('buttondown', function (e) {
           drawing = true;
           netLog("buttown down canvas event at e", e)
@@ -118,47 +135,55 @@ class VRScene05 extends Component {Í
               x: vector.x,
               y: vector.y
           };
-
       };
 
-      box1.addEventListener('raycaster-intersected', function (e) {
-          netLog("raycaster canvas event at e", JSON.stringify(e.detail.intersection.point));
-          netLog("here before proj")
-          position = e.detail.intersection.point
-          if (!drawing) return;
-          netLog("here about to proj")
-          netLog("here about to proj-sceneCamera", box1.sceneEl.cameraEl)
-          netLog("scene", scene)
-          netLog("scene-camera", scene.camera)
+      function raycasterEventHandler (e) {
+             netLog(e.detail)
+             netLog("raycaster canvas event at e", JSON.stringify(e.detail.intersection.point));
+             netLog("here before proj")
+             position = e.detail.intersection.point
+             if (!drawing) return;
+             netLog("here about to proj")
+             netLog("here about to proj-sceneCamera", box1.sceneEl.cameraEl)
+             netLog("scene", scene)
+             netLog("scene-camera", scene.camera)
 
-          let proj = toScreenPosition(e.detail.intersection.point, scene.camera)
-          lastRayPosition.x = currentRayPosition.x;
-          lastRayPosition.y = currentRayPosition.y;
+             let proj = toScreenPosition(e.detail.intersection.point, scene.camera)
+             lastRayPosition.x = currentRayPosition.x;
+             lastRayPosition.y = currentRayPosition.y;
 
-          currentRayPosition.x = proj.x //- this.offsetLeft;
-          currentRayPosition.y = proj.y //- this.offsetTop;
-          whiteboard.draw = function (start, end, strokeColor = 'black', shouldBroadcast) {
+             currentRayPosition.x = proj.x //- this.offsetLeft;
+             currentRayPosition.y = proj.y //- this.offsetTop;
+             whiteboard.draw = function (start, end, strokeColor = 'black', shouldBroadcast) {
 
-            // Draw the line between the start and end positions
-            // that is colored with the given color.
-            ctx.beginPath();
-            ctx.strokeStyle = strokeColor;
-            ctx.moveTo(start.x, start.y);
-            ctx.lineTo(end.x, end.y);
-            ctx.closePath();
-            ctx.stroke();
+               // Draw the line between the start and end positions
+               // that is colored with the given color.
+               ctx.beginPath();
+               ctx.strokeStyle = strokeColor;
+               ctx.moveTo(start.x, start.y);
+               ctx.lineTo(end.x, end.y);
+               ctx.closePath();
+               ctx.stroke();
 
 
-            if (shouldBroadcast) {
-                whiteboard.emit('draw', start, end, strokeColor);
-            }
-          };
+               if (shouldBroadcast) {
+                   whiteboard.emit('draw', start, end, strokeColor);
+               }
+             };
 
-          whiteboard.draw(lastRayPosition, currentRayPosition, 'black', true);
-          component.updateTexture();
-      })
+             whiteboard.draw(lastRayPosition, currentRayPosition, 'black', true);
+             component.updateTexture();
+      }
+
+      box1.addEventListener('raycaster-intersected',
+        (e) => { eventThrottler(e, raycasterEventHandler) }
+      )
     })
+
+
   }
+
+
 
   render() {
     return (
@@ -166,6 +191,7 @@ class VRScene05 extends Component {Í
 
         <a-scene firebase={aframeConfig}>
           <a-assets>
+            <img id="fsPano" src="/assets/IMG_3941.JPG" />
           </a-assets>
           <a-entity position="-0.2 2.0 0" firebase-broadcast="components: position, rotation, material, geometry">
             <a-entity id="remote" daydream-controller raycaster="objects: .selectable">
@@ -173,6 +199,7 @@ class VRScene05 extends Component {Í
               <a-box id="position-guide" visible="false" position="0 0 -2"></a-box>
             </a-entity>
           </a-entity>
+          <a-sky src="#fsPano"></a-sky>
           <a-sphere position="0 0 0" material="color: red; shader:flat" radius="15"></a-sphere>
           <a-plane id="box1"  canvas-material="width:500;height:500;color:#224466" scale="10 4 4" class="selectable" position="0 2 -4" firebase-broadcast="components: position, rotation,  material, geometry"></a-plane>
           <a-box id="box2" class="selectable" scale="10 4 4" material="color:green; shader: flat" position="0 2 10"></a-box>

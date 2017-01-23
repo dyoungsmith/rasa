@@ -17,23 +17,25 @@ AFRAME.registerComponent('canvas-material', {
       if(!this.canvas){
         this.canvas = document.createElement("canvas");
       }
+
       this.texture = new THREE.CanvasTexture(this.canvas);
       this.material = new THREE.MeshBasicMaterial({ map: this.texture, transparent: true });
       var _this = this;
       this.canvas.width = this.data.width;
       this.canvas.height = this.data.height;
       const ctx = this.canvas.getContext("2d");
-      ctx.fillStyle = "yellow";
+      ctx.fillStyle = "white";
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
       this.getContext = function(){
         var ctx = _this.canvas.getContext("2d");
         return ctx;
       }
+
       this.updateTexture = function(){
         this.texture.needsUpdate = true;
       }
-      console.log("this", this.getContext)
+
       var event = new Event("loaded")
       document.dispatchEvent(event)
     },
@@ -42,7 +44,6 @@ AFRAME.registerComponent('canvas-material', {
 
       // HACK:adding timeout because child[0] not immediately available
       setTimeout(function(){
-        console.log("before if check - this.el: ", _this.el.object3D)
         if(_this.el.object3D.children[0]){
         _this.el.object3D.children[0].material = _this.material;
 
