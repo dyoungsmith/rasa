@@ -5,7 +5,7 @@ import config from '../config'
 import axios from 'axios';
 
 //////////////////////////////////////////////
-//EventEmitter - not sure if we need this with firebase now - relic from whiteboard
+// EventEmitter - not sure if we need this with firebase now - relic from whiteboard
 //////////////////////////////////////////////
 window.EventEmitter = class EventEmitter {
   constructor () {
@@ -33,7 +33,7 @@ window.EventEmitter = class EventEmitter {
 };
 window.whiteboard = new window.EventEmitter();
 
-//Used to send logs to the server in case we don't have remote mobile console setup
+// Used to send logs to the server in case we don't have remote mobile console setup
 function netLog(...input){
   // console.log("here")
   let joinedInput = input.join(' , ')
@@ -45,11 +45,8 @@ function netLog(...input){
 let isVR = false;
 
 
-//Copy the config.js object from the slack channel
+// Copy the config.js object from the slack channel
 let aframeConfig = AFRAME.utils.styleParser.stringify(config);
-
-
-
 
 class VRScene05 extends Component {
   componentDidMount(){
