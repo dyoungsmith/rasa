@@ -72,8 +72,8 @@ class VRScene05 extends Component {
       const ctx = component.getContext("2d");
 
       //The firebase object
-      const firebase = document.querySelector('a-scene').systems.firebase.firebase
-      const db = firebase.database();
+      // const firebase = document.querySelector('a-scene').systems.firebase.firebase
+      // const db = firebase.database();
 
       ctx.lineWidth = 5;
       ctx.lineJoin = 'bevel';
@@ -184,18 +184,16 @@ class VRScene05 extends Component {
           <a-assets>
             <img id="fsPano" src="/IMG_3941.JPG" />
           </a-assets>
-          <a-entity position="-0.2 2.0 0" firebase-broadcast="components: position, rotation, material, geometry">
+          <a-entity position="-0.2 2.0 0">
             <a-entity id="remote" daydream-controller raycaster="objects: .selectable">
               <a-cone id="ray" color="cyan" position="0 0 -2" rotation="-90 0 0" radius-bottom="0.005" radius-top="0.001" height="4"></a-cone>
               <a-box id="position-guide" visible="false" position="0 0 -2"></a-box>
             </a-entity>
           </a-entity>
           <a-sky src="#fsPano"></a-sky>
-          <a-sphere position="0 0 0" material="color: red; shader:flat" radius="15"></a-sphere>
-          <a-plane id="wBoard"  canvas-material="width:500;height:500;color:#224466" scale="10 4 4" class="selectable" position="0 2 -4" ></a-plane>
+          <a-plane id="wBoard"  canvas-material="width:500;height:500" scale="10 4 4" class="selectable" position="0 2 -4" ></a-plane>
           <a-box id="box2" class="selectable" scale="10 4 4" material="color:green; shader: flat" position="0 2 10"></a-box>
 
-          <a-sky color="blue"></a-sky>
         </a-scene>
       </div>
     );

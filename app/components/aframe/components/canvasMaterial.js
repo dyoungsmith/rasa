@@ -25,8 +25,7 @@ AFRAME.registerComponent('canvas-material', {
         this.canvas.height = this.data.height;
         const ctx = this.canvas.getContext("2d");
         ctx.fillStyle = "white";
-        // ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        ctx.fill();
+        ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.getContext = function() {
             var ctx = _this.canvas.getContext("2d");
